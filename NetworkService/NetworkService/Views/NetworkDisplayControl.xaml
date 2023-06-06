@@ -1,0 +1,244 @@
+﻿<UserControl x:Class="NetworkService.Views.NetworkDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+             xmlns:data="clr-namespace:NetworkService.Model"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             Height="650" Width="450"
+             FontSize="14"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="12"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="LightGray"
+             FontFamily="Fira"
+             >
+
+    <UserControl.DataContext>
+        <viewModel:NetworkDisplayViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+            <StackPanel Orientation="Vertical">
+
+                <materialDesign:Card Margin="12" UniformCornerRadius="12" Background="Lavender">
+                    <StackPanel Orientation="Vertical" Margin="12">
+                        <Label HorizontalAlignment="Center">Display grid</Label>
+                    <StackPanel x:Name="stackPanel" Orientation="Horizontal" Margin="4,4,4,0" HorizontalAlignment="Center">
+                        <Canvas x:Name="itemCanvas1" Width="90" Height="100" Background="{Binding canvasImages[0].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas1}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas1}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas1}"/>
+                        </Canvas>
+
+                        <Canvas x:Name="itemCanvas2" Width="90" Height="100" Background="{Binding canvasImages[1].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas2}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas2}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas2}"/>
+                        </Canvas>
+
+                        <Canvas x:Name="itemCanvas3" Width="90" Height="100" Background="{Binding canvasImages[2].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas3}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas3}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas3}"/>
+                        </Canvas>
+
+                        <Canvas x:Name="itemCanvas4" Width="90" Height="100" Background="{Binding canvasImages[3].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas4}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas4}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas4}"/>
+                        </Canvas>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4,4,4,0" HorizontalAlignment="Center">
+                    <Canvas x:Name="itemCanvas5" Width="90" Height="100" Background="{Binding canvasImages[4].Image}" Margin="4" AllowDrop="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Drop">
+                                <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas5}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas5}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas5}"/>
+                    </Canvas>
+
+                    <Canvas x:Name="itemCanvas6" Width="90" Height="100" Background="{Binding canvasImages[5].Image}" Margin="4" AllowDrop="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Drop">
+                                <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas6}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas6}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas6}"/>
+                    </Canvas>
+
+                    <Canvas x:Name="itemCanvas7" Width="90" Height="100" Background="{Binding canvasImages[6].Image}" Margin="4" AllowDrop="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Drop">
+                                <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas7}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas7}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas7}"/>
+                    </Canvas>
+
+                    <Canvas x:Name="itemCanvas8" Width="90" Height="100" Background="{Binding canvasImages[7].Image}" Margin="4" AllowDrop="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Drop">
+                                <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas8}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas8}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas8}"/>
+                    </Canvas>
+                </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4,4,4,0" HorizontalAlignment="Center">
+                        <Canvas x:Name="itemCanvas9" Width="90" Height="100" Background="{Binding canvasImages[8].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas9}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas9}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas9}"/>
+                        </Canvas>
+
+                        <Canvas x:Name="itemCanvas10" Width="90" Height="100" Background="{Binding canvasImages[9].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas10}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas10}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas10}"/>
+                        </Canvas>
+
+                        <Canvas x:Name="itemCanvas11" Width="90" Height="100" Background="{Binding canvasImages[10].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas11}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas11}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas11}"/>
+                        </Canvas>
+
+                        <Canvas x:Name="itemCanvas12" Width="90" Height="100" Background="{Binding canvasImages[11].Image}" Margin="4" AllowDrop="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Drop">
+                                    <i:InvokeCommandAction Command="{Binding drop}" CommandParameter="{Binding ElementName=itemCanvas12}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding mouseDown}" CommandParameter="{Binding ElementName=itemCanvas12}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
+                            <Button Width="90" Height="20" Margin="0,80,0,0" Content="remove" FontSize="12" Command="{Binding buttonClick}"
+                                CommandParameter="{Binding ElementName=itemCanvas12}"/>
+                        </Canvas>
+                    </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+
+            <materialDesign:Card Background="Beige" Margin="12" UniformCornerRadius="12">
+                <StackPanel>
+                    
+                
+            <ListView x:Name="listView" Margin="15,5,15,15" Height="150" Width="auto" ItemsSource="{Binding DisplayEntities}"
+                        SelectedItem="{Binding SelectedItem}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="Id: "/>
+                            <TextBlock Text="{Binding Id}"/>
+                            <TextBlock Text=",  Name: "/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text=",  Value: "/>
+                            <TextBlock Text="{Binding EntityValue}"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding ListViewMouseLeftButtonUp}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ListViewSelectionChanged}" CommandParameter="{Binding ElementName=listView}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+            <Button Width="1
+                    " Height="30" Margin="0,0,0,12" Content="Refresh" Command="{Binding refreshClick}"/>
+            
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+    </Grid>
+</UserControl>

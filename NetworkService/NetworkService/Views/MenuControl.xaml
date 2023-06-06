@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="NetworkService.Views.MenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+             xmlns:data="clr-namespace:NetworkService.Model"
+             mc:Ignorable="d" 
+             Height="620" Width="460"
+             FontSize="17">
+    
+    <UserControl.DataContext>
+        <viewModel:MenuViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Button Content="NetworkEntities" FontSize="50" Margin="5"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Button Content="NetworkDisplay" FontSize="50" Margin="5"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Button Content="NetworkGraph" FontSize="50" Margin="5"/>
+        </Grid>
+    </Grid>
+</UserControl>

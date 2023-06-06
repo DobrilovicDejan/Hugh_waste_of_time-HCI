@@ -1,0 +1,88 @@
+﻿<Window x:Class="NetworkService.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetworkService"
+        xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+        xmlns:views="clr-namespace:NetworkService.Views"
+        xmlns:data="clr-namespace:NetworkService.Model"
+        mc:Ignorable="d"
+        Title="Wanna know" Height="760" Width="450"
+        FontSize="14"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         TextElement.FontWeight="Regular"
+         TextElement.FontSize="12"
+         TextOptions.TextFormattingMode="Ideal"
+         TextOptions.TextRenderingMode="Auto"
+         Background="LightGray"
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        >
+        
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:NetworkEntitiesViewModel}">
+            <views:NetworkEntitiesUserControl/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:NetworkDisplayViewModel}">
+            <views:NetworkDisplay/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:NetworkGraphViewModel}">
+            <views:NetworkGraphControl/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid Height="800">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.Row="0" Margin="8" HorizontalAlignment="Stretch"
+                             UniformCornerRadius="12" Background="MediumPurple">
+            
+        <Grid>
+            <DockPanel >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btn_E" Click="btn_E_Click" Content="Entities" Width="100" Height="28" Margin="10,0" Command="{Binding SetMenuEntities}"/>
+                <Button x:Name="btn_D" Click="btn_D_Click" Content="Display" Width="100" Height="28" Margin="20,0" Command="{Binding SetMenuDisplay}"/>
+                <Button x:Name="btn_G" Click="btn_G_Click" Content="Graph" Width="100" Height="28" Margin="10,0" Command="{Binding SetMenuGraph}"/>
+            </StackPanel>
+            </DockPanel>
+        </Grid>
+        </materialDesign:Card>
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}"/>
+
+        </Grid>
+        <materialDesign:Card Grid.Row="2" Margin="8" HorizontalAlignment="Stretch"
+                             UniformCornerRadius="8" Background="MediumPurple">
+
+            <DockPanel >
+                
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button  Width="100" Content="CLOSE"  Height="30" Margin="15,0"
+                             Click="Button_Click"/>
+
+
+                    <Button  Width="100" Content="HOME" Height="30" Margin="15,0"
+                             Command="{Binding SetMenuEntities}"/>
+
+                    <Button Width="100" Content="UNDO" Height="30" Margin="15,0"
+                            Command="{Binding UndoAction}"/>
+                </StackPanel>
+            </DockPanel>
+
+
+        </materialDesign:Card>
+    </Grid>
+</Window>

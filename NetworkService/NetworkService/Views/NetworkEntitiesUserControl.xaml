@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="NetworkService.Views.NetworkEntitiesUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+             xmlns:data="clr-namespace:NetworkService.Model"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="450"
+             FontSize="14"
+                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="12"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="LightGray"
+             FontFamily="Fira"
+             >
+    <UserControl.DataContext>
+        <viewModel:NetworkEntitiesViewModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Margin="12" UniformCornerRadius="12" Background="Lavender">
+            <StackPanel Orientation="Vertical" CanVerticallyScroll="True">
+                <Label HorizontalAlignment="Center">Flow meters</Label>
+                <DataGrid Background="Lavender"
+                    x:Name="protokDG" ItemsSource="{Binding NetworkEntities}" 
+                          SelectedItem="{Binding SelectedEntity}" IsReadOnly="True" AutoGenerateColumns="False" Height="446">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="30" Header="ID" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="*" Header="Type" Binding="{Binding Type.Protok}"/>
+                        <DataGridTextColumn Width="*" Header="Value" Binding="{Binding EntityValue}"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </StackPanel>
+        </materialDesign:Card>
+
+            
+
+        <materialDesign:Card Grid.Row="1" UniformCornerRadius="12" Margin="12" Background="Beige">
+            <StackPanel Orientation="Vertical">
+                <Label HorizontalAlignment="Center">Manage flow meters</Label>
+                <StackPanel Orientation="Horizontal" Margin="12,0">
+
+                    <Label Content="ID" Width="150" IsHitTestVisible="False" />
+                    <Label Content="Name" Width="150"  IsHitTestVisible="False" />
+                    <Label Content="Type" Width="150" IsHitTestVisible="False"/>
+
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="12,0">
+                    <TextBox x:Name="tbId" Width="130">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <i:InvokeCommandAction Command="{Binding gotFocusId}" CommandParameter="{Binding ElementName=tbId}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+
+                    <Separator Margin="8,0"></Separator>
+
+                    <TextBox x:Name="tbName" Width="130" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <i:InvokeCommandAction Command="{Binding gotFocusName}" CommandParameter="{Binding ElementName=tbName}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+
+                    <Separator Margin="8,0"></Separator>
+                    <ComboBox Width="150" ItemsSource="{Binding protokTypes}" SelectedItem="{Binding EntityprotokType}" />
+
+
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="12" HorizontalAlignment="Center">
+
+                    <Button Width="100" Height="28" Content="Add" Command="{Binding Add}" />
+                    <Separator Margin="25,0"></Separator>
+                    <Button Width="100" Height="28" Content="Delete" Command="{Binding Delete}" />
+                    <Separator Margin="25,0"></Separator>
+                    <Button Width="100" Height="28" Content="Refresh" Command="{Binding Refresh}" />
+                </StackPanel>
+            </StackPanel>
+
+        </materialDesign:Card>
+
+        <materialDesign:Card Margin="8" UniformCornerRadius="12"
+                                 Background="Lavender" Height="90"
+                             Grid.Row="2">
+            <StackPanel Orientation="Vertical">
+                <Label HorizontalAlignment="Center">Filter items</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+
+                        <Label>Type:</Label>
+                        <ComboBox ItemsSource="{Binding protokTypes}" SelectedItem="{Binding FilterEntities.Protok}" Width="100" Height="25"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0, 0" VerticalAlignment="Center">
+                        <RadioButton IsChecked="{Binding FilterEntities.GreaterThan}" Content="&gt;" Margin="20,0,10,0" VerticalContentAlignment="Center"/>
+                        <RadioButton IsChecked="{Binding FilterEntities.EqualAs}" Content="="  Margin="0,0,10,0" VerticalContentAlignment="Center"/>
+                        <RadioButton IsChecked="{Binding FilterEntities.LessThan}" Content="&lt;" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+
+                    <TextBox x:Name="tbFilter" Width="100" Height="30" 
+                             Margin="10,0,0,0" VerticalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="GotFocus">
+                                <i:InvokeCommandAction Command="{Binding gotFocusFilter}" CommandParameter="{Binding ElementName=tbFilter}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <Button Command="{Binding Filter}" Width="120" Margin="20,0,10,0" Content="Filter" Height="25"/>
+                </StackPanel>
+            </StackPanel>
+            </StackPanel>
+
+        </materialDesign:Card>
+
+
+        <materialDesign:Card Grid.Row="3">
+            
+    
+        <StackPanel Orientation="Vertical" Background="Lavender" Margin="0,0,0,10" VerticalAlignment="Bottom" Panel.ZIndex="2" Visibility="{Binding KeyboardVisible}">
+            <TextBox x:Name="tbInput" Height="30" Margin="5" Text="{Binding Input, Mode=TwoWay}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="40" Height="25" Content="1" Margin="1" Command="{Binding buttonPress}" CommandParameter="1"/>
+                <Button Width="40" Height="25" Content="2" Margin="1" Command="{Binding buttonPress}" CommandParameter="2"/>
+                <Button Width="40" Height="25" Content="3" Margin="1" Command="{Binding buttonPress}" CommandParameter="3"/>
+                <Button Width="40" Height="25" Content="4" Margin="1" Command="{Binding buttonPress}" CommandParameter="4"/>
+                <Button Width="40" Height="25" Content="5" Margin="1" Command="{Binding buttonPress}" CommandParameter="5"/>
+                <Button Width="40" Height="25" Content="6" Margin="1" Command="{Binding buttonPress}" CommandParameter="6"/>
+                <Button Width="40" Height="25" Content="7" Margin="1" Command="{Binding buttonPress}" CommandParameter="7"/>
+                <Button Width="40" Height="25" Content="8" Margin="1" Command="{Binding buttonPress}" CommandParameter="8"/>
+                <Button Width="40" Height="25" Content="9" Margin="1" Command="{Binding buttonPress}" CommandParameter="9"/>
+                <Button Width="40" Height="25" Content="0" Margin="1" Command="{Binding buttonPress}" CommandParameter="0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="40" Height="30" Content="Q" Margin="1" Command="{Binding buttonPress}" CommandParameter="q"/>
+                <Button Width="40" Height="30" Content="W" Margin="1" Command="{Binding buttonPress}" CommandParameter="w"/>
+                <Button Width="40" Height="30" Content="E" Margin="1" Command="{Binding buttonPress}" CommandParameter="e"/>
+                <Button Width="40" Height="30" Content="R" Margin="1" Command="{Binding buttonPress}" CommandParameter="r"/>
+                <Button Width="40" Height="30" Content="T" Margin="1" Command="{Binding buttonPress}" CommandParameter="t"/>
+                <Button Width="40" Height="30" Content="Y" Margin="1" Command="{Binding buttonPress}" CommandParameter="y"/>
+                <Button Width="40" Height="30" Content="U" Margin="1" Command="{Binding buttonPress}" CommandParameter="u"/>
+                <Button Width="40" Height="30" Content="I" Margin="1" Command="{Binding buttonPress}" CommandParameter="i"/>
+                <Button Width="40" Height="30" Content="O" Margin="1" Command="{Binding buttonPress}" CommandParameter="o"/>
+                <Button Width="40" Height="30" Content="P" Margin="1" Command="{Binding buttonPress}" CommandParameter="p"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="40" Height="30" Content="A" Margin="1" Command="{Binding buttonPress}" CommandParameter="a"/>
+                <Button Width="40" Height="30" Content="S" Margin="1" Command="{Binding buttonPress}" CommandParameter="s"/>
+                <Button Width="40" Height="30" Content="D" Margin="1" Command="{Binding buttonPress}" CommandParameter="d"/>
+                <Button Width="40" Height="30" Content="F" Margin="1" Command="{Binding buttonPress}" CommandParameter="f"/>
+                <Button Width="40" Height="30" Content="G" Margin="1" Command="{Binding buttonPress}" CommandParameter="g"/>
+                <Button Width="40" Height="30" Content="H" Margin="1" Command="{Binding buttonPress}" CommandParameter="h"/>
+                <Button Width="40" Height="30" Content="J" Margin="1" Command="{Binding buttonPress}" CommandParameter="j"/>
+                <Button Width="40" Height="30" Content="K" Margin="1" Command="{Binding buttonPress}" CommandParameter="k"/>
+                <Button Width="40" Height="30" Content="L" Margin="1" Command="{Binding buttonPress}" CommandParameter="l"/>
+                </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Width="40" Height="30" Content="_" Margin="1" Command="{Binding buttonPress}" CommandParameter="_"/>
+                <Button Width="40" Height="30" Content="Z" Margin="1" Command="{Binding buttonPress}" CommandParameter="z"/>
+                <Button Width="40" Height="30" Content="X" Margin="1" Command="{Binding buttonPress}" CommandParameter="x"/>
+                <Button Width="40" Height="30" Content="C" Margin="1" Command="{Binding buttonPress}" CommandParameter="c"/>
+                <Button Width="40" Height="30" Content="V" Margin="1" Command="{Binding buttonPress}" CommandParameter="v"/>
+                <Button Width="40" Height="30" Content="B" Margin="1" Command="{Binding buttonPress}" CommandParameter="b"/>
+                <Button Width="40" Height="30" Content="N" Margin="1" Command="{Binding buttonPress}" CommandParameter="n"/>
+                <Button Width="40" Height="30" Content="M" Margin="1" Command="{Binding buttonPress}" CommandParameter="m"/>
+                <Button Width="40" Height="30" Content="," Margin="1" Command="{Binding buttonPress}" CommandParameter=","/>
+                <Button Width="40" Height="30" Content="." Margin="1" Command="{Binding buttonPress}" CommandParameter="."/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="50" Height="30" Content="DEL" FontSize="10" Margin="1" Command="{Binding buttonDelete}"/>
+                <Button Width="80" Height="30" Content="DELALL" FontSize="10" Margin="1" Command="{Binding buttonDeleteAll}"/>
+                <Button Width="150" Height="30" Content="SPACE" FontSize="10" Margin="10,0,30,0" Command="{Binding buttonPress}" CommandParameter=" "/>
+                <Button Width="80" Height="30" Content="ENTER" Margin="1" Command="{Binding buttonEnter}"/>
+            </StackPanel>
+        </StackPanel>
+
+        </materialDesign:Card>
+
+    </Grid>
+</UserControl>
